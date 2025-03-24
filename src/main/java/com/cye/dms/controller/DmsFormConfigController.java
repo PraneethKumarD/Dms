@@ -63,9 +63,9 @@ public class DmsFormConfigController {
     @ApiResponse(responseCode = "204", description = " Content NotFound")
     @ApiResponse(responseCode = "500", description = "Internal server error.")
     @DeleteMapping
-    public ResponseEntity<Void> deleteDmsFormConfig(@RequestParam Long id) {
+    public ResponseEntity<String> deleteDmsFormConfig(@RequestParam Long id) {
         dmsFormConfigService.deleteDmsFormConfig(id);
-        return new ResponseEntity<>(HttpStatus.NO_CONTENT);
+        return new ResponseEntity<>( "DmsFormConfig Succesfully Deleted." ,HttpStatus.OK);
     }
 
     @Operation(summary = "Fetching all data of DMS Form Config", description = "gets list of data of dms form  configuration from the DB.")

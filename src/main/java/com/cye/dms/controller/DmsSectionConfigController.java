@@ -45,7 +45,7 @@ public class DmsSectionConfigController {
     @ApiResponse(responseCode = "200", description = " successfully fetched.")
     @ApiResponse(responseCode = "500", description = "Internal server error.")
     @GetMapping
-    public ResponseEntity<DmsSectionConfigDto> getbyid(@RequestParam Long id) {
+    public ResponseEntity<DmsSectionConfigDto> getDmsSectionConfigById(@RequestParam Long id) {
         DmsSectionConfigDto gotDmsSectionConfig = dmsSectionConfigService.getDmsSectionConfigById(id);
         return new ResponseEntity<>(gotDmsSectionConfig, HttpStatus.OK);
     }
@@ -54,7 +54,7 @@ public class DmsSectionConfigController {
     @ApiResponse(responseCode = "200", description = " successfully updated.")
     @ApiResponse(responseCode = "500", description = "Internal server error.")
     @PutMapping
-    public ResponseEntity<DmsSectionConfigDto> updateDms(@RequestParam Long id,
+    public ResponseEntity<DmsSectionConfigDto> updateDmsSectionConfigById(@RequestParam Long id,
             @Valid @RequestBody DmsSectionConfigDto dmsSectionConfigDto) {
         DmsSectionConfigDto updatedDms = dmsSectionConfigService.updateDmsSectionConfig(id, dmsSectionConfigDto);
         return new ResponseEntity<>(updatedDms, HttpStatus.OK);
@@ -64,9 +64,9 @@ public class DmsSectionConfigController {
     @ApiResponse(responseCode = "204", description = " Content NotFound.")
     @ApiResponse(responseCode = "500", description = "Internal server error.")
     @DeleteMapping
-    public ResponseEntity<Void> deleteEmployee(@RequestParam Long id) {
+    public ResponseEntity<String> deleteDmsSectionConfigById(@RequestParam Long id) {
         dmsSectionConfigService.deleteDmsSectionConfig(id);
-        return new ResponseEntity<>(HttpStatus.NO_CONTENT);
+        return new ResponseEntity<>("successfully deleted DmsSectionConfig",HttpStatus.OK);
     }
 
       @Operation(summary = "Fetching all data of DMS Section Config", description = "gets list of data of dms section  configuration from the DB.")
