@@ -6,9 +6,9 @@ import com.cye.dms.dto.DmsSectionConfigDto;
 
 public interface DmsSectionConfigService {
 
-        DmsSectionConfigDto create(DmsSectionConfigDto dmsSectionConfigDto);
-        DmsSectionConfigDto findById(Long id);
-        DmsSectionConfigDto update(Long id,  DmsSectionConfigDto dmsSectionConfigDto);            
-        void delete(Long id);
-        List<DmsSectionConfigDto> findall();
+        DmsSectionConfigDto createDmsSectionConfig(DmsSectionConfigDto dmsSectionConfigDto);
+        DmsSectionConfigDto getDmsSectionConfigById(Long id);
+        DmsSectionConfigDto updateDmsSectionConfig(Long id,  DmsSectionConfigDto dmsSectionConfigDto);            
+        void deleteDmsSectionConfig(Long id);
+        List<DmsSectionConfigDto> getAllDmsSectionConfig();
 }

@@ -7,7 +7,6 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
@@ -24,7 +23,7 @@ import io.swagger.v3.oas.annotations.tags.Tag;
 import jakarta.validation.Valid;
 
 @RestController
-@RequestMapping("/api/dmssection")
+@RequestMapping("/api/dmsSectionConfig")
 @Tag(name = "DMS Section Config API", description = "Manage DMS Section Configurations")
 public class DmsSectionConfigController {
 
@@ -34,10 +33,10 @@ public class DmsSectionConfigController {
     @Operation(summary = "Create a new DMS Section Config", description = "Adds a new Section configuration to the system and returns the created object.")
     @ApiResponse(responseCode = "201", description = " successfully created.")
     @ApiResponse(responseCode = "500", description = "Internal server error.")
-    @PostMapping("/save")
-    public ResponseEntity<DmsSectionConfigDto> saveDmsFormConfig(
+    @PostMapping
+    public ResponseEntity<DmsSectionConfigDto> createDmsSectionConfig(
             @Valid @RequestBody DmsSectionConfigDto dmsSectionConfigDto) {
-        DmsSectionConfigDto saveDmsSectionConfig = dmsSectionConfigService.create(dmsSectionConfigDto);
+        DmsSectionConfigDto saveDmsSectionConfig = dmsSectionConfigService.createDmsSectionConfig(dmsSectionConfigDto);
 
         return new ResponseEntity<>(saveDmsSectionConfig, HttpStatus.CREATED);
     }
@@ -45,28 +44,28 @@ public class DmsSectionConfigController {
     @Operation(summary = "Get a DMS Section Config by ID", description = "Fetches a section configuration by its unique ID.")
     @ApiResponse(responseCode = "200", description = " successfully fetched.")
     @ApiResponse(responseCode = "500", description = "Internal server error.")
-    @GetMapping("/id/{id}")
-    public ResponseEntity<DmsSectionConfigDto> getbyid(@PathVariable Long id) {
-        DmsSectionConfigDto gotDmsSectionConfig = dmsSectionConfigService.findById(id);
+    @GetMapping
+    public ResponseEntity<DmsSectionConfigDto> getbyid(@RequestParam Long id) {
+        DmsSectionConfigDto gotDmsSectionConfig = dmsSectionConfigService.getDmsSectionConfigById(id);
         return new ResponseEntity<>(gotDmsSectionConfig, HttpStatus.OK);
     }
 
     @Operation(summary = "Update a DMS section Config", description = "Updates an existing section configuration based on the provided ID.")
     @ApiResponse(responseCode = "200", description = " successfully updated.")
     @ApiResponse(responseCode = "500", description = "Internal server error.")
-    @PutMapping("/id")
+    @PutMapping
     public ResponseEntity<DmsSectionConfigDto> updateDms(@RequestParam Long id,
             @Valid @RequestBody DmsSectionConfigDto dmsSectionConfigDto) {
-        DmsSectionConfigDto updatedDms = dmsSectionConfigService.update(id, dmsSectionConfigDto);
+        DmsSectionConfigDto updatedDms = dmsSectionConfigService.updateDmsSectionConfig(id, dmsSectionConfigDto);
         return new ResponseEntity<>(updatedDms, HttpStatus.OK);
     }
 
     @Operation(summary = "Delete a DMS section Config", description = "Removes a section configuration from the system by its ID.")
     @ApiResponse(responseCode = "204", description = " Content NotFound.")
     @ApiResponse(responseCode = "500", description = "Internal server error.")
-    @DeleteMapping("/delete/id")
+    @DeleteMapping
     public ResponseEntity<Void> deleteEmployee(@RequestParam Long id) {
-        dmsSectionConfigService.delete(id);
+        dmsSectionConfigService.deleteDmsSectionConfig(id);
         return new ResponseEntity<>(HttpStatus.NO_CONTENT);
     }
 
@@ -75,7 +74,7 @@ public class DmsSectionConfigController {
     @ApiResponse(responseCode = "500", description = "Internal server error.")
     @GetMapping("/findall")
     public ResponseEntity<List<DmsSectionConfigDto>> findall() {
-        List<DmsSectionConfigDto> listofDtos = dmsSectionConfigService.findall();
+        List<DmsSectionConfigDto> listofDtos = dmsSectionConfigService.getAllDmsSectionConfig();
         return new ResponseEntity<List<DmsSectionConfigDto>>(listofDtos, HttpStatus.OK);
     }
 }

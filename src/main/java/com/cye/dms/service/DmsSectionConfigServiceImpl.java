@@ -8,15 +8,10 @@ import org.hibernate.service.spi.ServiceException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import com.cye.dms.dto.DmsFieldMasterDataDto;
-import com.cye.dms.dto.DmsFormConfigDto;
 import com.cye.dms.dto.DmsSectionConfigDto;
-import com.cye.dms.entity.DmsFieldMasterData;
-import com.cye.dms.entity.DmsFormConfig;
 import com.cye.dms.entity.DmsSectionConfig;
 import com.cye.dms.exception.DmsFormConfigNotFoundException;
 import com.cye.dms.exception.DmsSectionConfigNotFoundException;
-import com.cye.dms.mapper.DmsFormConfigMapper;
 import com.cye.dms.mapper.DmsSectionConfigMapper;
 import com.cye.dms.repository.DmsSectionConfigRepository;
 
@@ -26,7 +21,7 @@ public class DmsSectionConfigServiceImpl implements DmsSectionConfigService{
      @Autowired
     private DmsSectionConfigRepository dmsSectionConfigRepository;
 
-    public DmsSectionConfigDto create(DmsSectionConfigDto dmsSectionConfigDto) {
+    public DmsSectionConfigDto createDmsSectionConfig(DmsSectionConfigDto dmsSectionConfigDto) {
         try {
             if (dmsSectionConfigDto.getCreatedAt() == null) {
                 dmsSectionConfigDto.setCreatedAt(LocalDateTime.now());
@@ -42,7 +37,7 @@ public class DmsSectionConfigServiceImpl implements DmsSectionConfigService{
     }
 
     @Override
-    public DmsSectionConfigDto findById(Long id) {
+    public DmsSectionConfigDto getDmsSectionConfigById(Long id) {
 
         DmsSectionConfig dmsSectionConfig = dmsSectionConfigRepository.findById(id)
                 .orElseThrow(() -> new DmsSectionConfigNotFoundException("DmsFormConfig cannot be found with id " + id));
@@ -51,7 +46,7 @@ public class DmsSectionConfigServiceImpl implements DmsSectionConfigService{
     }
 
     @Override
-    public DmsSectionConfigDto update(Long id, DmsSectionConfigDto dmsSectionConfigDto) {
+    public DmsSectionConfigDto updateDmsSectionConfig(Long id, DmsSectionConfigDto dmsSectionConfigDto) {
 
         DmsSectionConfig dmsSectionConfig = dmsSectionConfigRepository.findById(id)
                 .orElseThrow(() -> new DmsFormConfigNotFoundException("DmsFormConfig cannot be found with id " + id));
@@ -81,7 +76,7 @@ public class DmsSectionConfigServiceImpl implements DmsSectionConfigService{
     }
 
     @Override
-    public void delete(Long id) {
+    public void deleteDmsSectionConfig(Long id) {
         
         DmsSectionConfig dmsSectionConfig = dmsSectionConfigRepository.findById(id)
                 .orElseThrow(() -> new DmsSectionConfigNotFoundException("DmsSectionConfig cannot be found with id " + id));
@@ -90,7 +85,7 @@ public class DmsSectionConfigServiceImpl implements DmsSectionConfigService{
     }
 
      @Override
-    public List<DmsSectionConfigDto> findall() {
+    public List<DmsSectionConfigDto> getAllDmsSectionConfig() {
        List<DmsSectionConfig>  dmsSectionconfig = dmsSectionConfigRepository.findAll();
        List<DmsSectionConfigDto> dmsFormConfigDtos = new  ArrayList<>();
        for(DmsSectionConfig dmsSectionConfig2 :  dmsSectionconfig){

@@ -22,7 +22,7 @@ public class DmsFieldMasterDataServiceImpl implements DmsFieldMasterDataService 
     private DmsFieldMasterDataRepository dmsFieldMasterDataRepository;
 
     @Override
-    public DmsFieldMasterDataDto create(DmsFieldMasterDataDto dmsFieldMasterDataDto) {
+    public DmsFieldMasterDataDto createDmsFieldMasterData(DmsFieldMasterDataDto dmsFieldMasterDataDto) {
         try {
             if (dmsFieldMasterDataDto.getCreatedAt() == null) {
                 dmsFieldMasterDataDto.setCreatedAt(LocalDateTime.now());
@@ -38,7 +38,7 @@ public class DmsFieldMasterDataServiceImpl implements DmsFieldMasterDataService 
         }
 
     @Override
-     public DmsFieldMasterDataDto findById(Long id) {
+     public DmsFieldMasterDataDto getDmsFieldMasterDataById(Long id) {
     return dmsFieldMasterDataRepository.findById(id)
         .map(DmsFieldMasterDataMapper::toDto)
         .orElseThrow(() -> new DmsFormConfigNotFoundException("DmsFormConfig with ID " + id + " not found."));
@@ -47,7 +47,7 @@ public class DmsFieldMasterDataServiceImpl implements DmsFieldMasterDataService 
     
 
     @Override
-    public DmsFieldMasterDataDto update(Long id, DmsFieldMasterDataDto dmsFieldMasterDataDto) {
+    public DmsFieldMasterDataDto updateDmsFieldMasterData(Long id, DmsFieldMasterDataDto dmsFieldMasterDataDto) {
        
         DmsFieldMasterData dmsFieldMasterData = dmsFieldMasterDataRepository.findById(id)
                 .orElseThrow(() -> new DmsFieldMasterDataNotFoundException("DmsFieldMasterData not found with id " + id));
@@ -87,7 +87,7 @@ public class DmsFieldMasterDataServiceImpl implements DmsFieldMasterDataService 
     
 
     @Override
-    public void delete(Long id) {
+    public void deleteDmsFieldMasterData(Long id) {
         
         DmsFieldMasterData dmsFieldMasterData = dmsFieldMasterDataRepository.findById(id)
                 .orElseThrow(() -> new DmsFormConfigNotFoundException("DmsFormConfig cannot be found with id " + id));
@@ -97,7 +97,7 @@ public class DmsFieldMasterDataServiceImpl implements DmsFieldMasterDataService 
    
 
    @Override
-    public List<DmsFieldMasterDataDto> findall() {
+    public List<DmsFieldMasterDataDto> getAllDmsFieldMasterData() {
        List<DmsFieldMasterData>  dmsFieldMasterData = dmsFieldMasterDataRepository.findAll();
        List<DmsFieldMasterDataDto> dmsFormConfigDtos = new  ArrayList<>();
        for(DmsFieldMasterData dmsFieldMasterData2 :  dmsFieldMasterData){

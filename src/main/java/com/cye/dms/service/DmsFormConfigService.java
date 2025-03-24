@@ -12,9 +12,9 @@ import com.cye.dms.dto.DmsFormConfigDto;
 
 public interface DmsFormConfigService {
 
-        DmsFormConfigDto create(DmsFormConfigDto dmsFormConfigDto);
-        DmsFormConfigDto findById(Long id);
-        DmsFormConfigDto update(Long id,  DmsFormConfigDto dmsFormConfigDto);            
-        void delete(Long id);
-        List<DmsFormConfigDto> findall();
+        DmsFormConfigDto createDmsFormConfig(DmsFormConfigDto dmsFormConfigDto);
+        DmsFormConfigDto getDmsFormConfigById(Long id);
+        DmsFormConfigDto updateDmsFormConfig(Long id,  DmsFormConfigDto dmsFormConfigDto);            
+        void deleteDmsFormConfig(Long id);
+        List<DmsFormConfigDto> getAllDmsFormConfigs();
 }

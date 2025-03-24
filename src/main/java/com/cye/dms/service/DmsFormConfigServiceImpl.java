@@ -3,7 +3,6 @@ package com.cye.dms.service;
 import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.List;
-import java.util.stream.Collectors;
 
 import org.hibernate.service.spi.ServiceException;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -21,7 +20,7 @@ public class DmsFormConfigServiceImpl implements DmsFormConfigService {
     @Autowired
     private DmsFormConfigRepository dmsFormConfigRepository;
 
-    public DmsFormConfigDto create(DmsFormConfigDto dmsFormConfigDto) {
+    public DmsFormConfigDto createDmsFormConfig(DmsFormConfigDto dmsFormConfigDto) {
         try {
             if (dmsFormConfigDto.getCreatedAt() == null) {
                 dmsFormConfigDto.setCreatedAt(LocalDateTime.now());
@@ -37,7 +36,7 @@ public class DmsFormConfigServiceImpl implements DmsFormConfigService {
     }
 
     @Override
-    public DmsFormConfigDto findById(Long id) {
+    public DmsFormConfigDto getDmsFormConfigById(Long id) {
 
         DmsFormConfig dmsFormConfig = dmsFormConfigRepository.findById(id)
                 .orElseThrow(() -> new DmsFormConfigNotFoundException("DmsFormConfig cannot be found with id " + id));
@@ -46,7 +45,7 @@ public class DmsFormConfigServiceImpl implements DmsFormConfigService {
     }
 
     @Override
-    public DmsFormConfigDto update(Long id, DmsFormConfigDto dmsFormConfigDto) {
+    public DmsFormConfigDto updateDmsFormConfig(Long id, DmsFormConfigDto dmsFormConfigDto) {
 
         DmsFormConfig dmsFormConfig = dmsFormConfigRepository.findById(id)
                 .orElseThrow(() -> new DmsFormConfigNotFoundException("DmsFormConfig cannot be found with id " + id));
@@ -70,24 +69,23 @@ public class DmsFormConfigServiceImpl implements DmsFormConfigService {
     }
 
     @Override
-    public void delete(Long id) {
-        
+    public void deleteDmsFormConfig(Long id) {
+
         DmsFormConfig dmsFormConfig = dmsFormConfigRepository.findById(id)
                 .orElseThrow(() -> new DmsFormConfigNotFoundException("DmsFormConfig cannot be found with id " + id));
-            
-                dmsFormConfigRepository.delete(dmsFormConfig);
-                
+
+        dmsFormConfigRepository.delete(dmsFormConfig);
+
     }
 
     @Override
-    public List<DmsFormConfigDto> findall() {
-       List<DmsFormConfig>  dmsFormconfig = dmsFormConfigRepository.findAll();
-       List<DmsFormConfigDto> dmsFormConfigDtos = new  ArrayList<>();
-       for(DmsFormConfig dmsFormConfig2 :  dmsFormconfig){
-        dmsFormConfigDtos.add(DmsFormConfigMapper.toDto(dmsFormConfig2));
-       }
-       return dmsFormConfigDtos;
+    public List<DmsFormConfigDto> getAllDmsFormConfigs() {
+        List<DmsFormConfig> dmsFormconfig = dmsFormConfigRepository.findAll();
+        List<DmsFormConfigDto> dmsFormConfigDtos = new ArrayList<>();
+        for (DmsFormConfig dmsFormConfig2 : dmsFormconfig) {
+            dmsFormConfigDtos.add(DmsFormConfigMapper.toDto(dmsFormConfig2));
+        }
+        return dmsFormConfigDtos;
     }
 
-     
 }
