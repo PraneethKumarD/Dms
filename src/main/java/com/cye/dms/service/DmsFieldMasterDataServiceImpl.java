@@ -1,6 +1,8 @@
 package com.cye.dms.service;
 
 import java.time.LocalDateTime;
+import java.util.ArrayList;
+import java.util.List;
 
 import org.hibernate.service.spi.ServiceException;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -93,5 +95,16 @@ public class DmsFieldMasterDataServiceImpl implements DmsFieldMasterDataService 
     }
 
    
+
+   @Override
+    public List<DmsFieldMasterDataDto> findall() {
+       List<DmsFieldMasterData>  dmsFieldMasterData = dmsFieldMasterDataRepository.findAll();
+       List<DmsFieldMasterDataDto> dmsFormConfigDtos = new  ArrayList<>();
+       for(DmsFieldMasterData dmsFieldMasterData2 :  dmsFieldMasterData){
+        dmsFormConfigDtos.add(DmsFieldMasterDataMapper.toDto(dmsFieldMasterData2));
+       }
+       return dmsFormConfigDtos;
+    }
+
 
 }

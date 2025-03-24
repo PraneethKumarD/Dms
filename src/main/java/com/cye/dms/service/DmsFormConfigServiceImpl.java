@@ -1,6 +1,9 @@
 package com.cye.dms.service;
 
 import java.time.LocalDateTime;
+import java.util.ArrayList;
+import java.util.List;
+import java.util.stream.Collectors;
 
 import org.hibernate.service.spi.ServiceException;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -76,4 +79,15 @@ public class DmsFormConfigServiceImpl implements DmsFormConfigService {
                 
     }
 
+    @Override
+    public List<DmsFormConfigDto> findall() {
+       List<DmsFormConfig>  dmsFormconfig = dmsFormConfigRepository.findAll();
+       List<DmsFormConfigDto> dmsFormConfigDtos = new  ArrayList<>();
+       for(DmsFormConfig dmsFormConfig2 :  dmsFormconfig){
+        dmsFormConfigDtos.add(DmsFormConfigMapper.toDto(dmsFormConfig2));
+       }
+       return dmsFormConfigDtos;
+    }
+
+     
 }

@@ -1,5 +1,7 @@
 package com.cye.dms.controller;
 
+import java.util.List;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -25,39 +27,31 @@ import jakarta.validation.Valid;
 @RequestMapping("/api/dmsformconfg")
 @Tag(name = "DMS Form Config API", description = "Manage DMS Form Configurations")
 public class DmsFormConfigController {
-   
-    @Autowired
-     private DmsFormConfigService dmsFormConfigService;
 
-    
-        @Operation(summary = "Create a new DMS Form Config", description = "Adds a new form configuration to the system and returns the created object.")
-        @ApiResponse(responseCode = "201", description = " successfully created.")
-        @ApiResponse(responseCode = "500", description = "Internal server error.")
+    @Autowired
+    private DmsFormConfigService dmsFormConfigService;
+
+    @Operation(summary = "Create a new DMS Form Config", description = "Adds a new form configuration to the system and returns the created object.")
+    @ApiResponse(responseCode = "201", description = " successfully created.")
+    @ApiResponse(responseCode = "500", description = "Internal server error.")
     @PostMapping("/save")
-    public ResponseEntity<DmsFormConfigDto> saveDmsFormConfig(@Valid @RequestBody DmsFormConfigDto dmsFormConfigDto)
-    {
+    public ResponseEntity<DmsFormConfigDto> saveDmsFormConfig(@Valid @RequestBody DmsFormConfigDto dmsFormConfigDto) {
         DmsFormConfigDto saveDmsFormConfig = dmsFormConfigService.create(dmsFormConfigDto);
 
         return new ResponseEntity<>(saveDmsFormConfig, HttpStatus.CREATED);
     }
 
-    @Operation(
-        summary = "Get a DMS Form Config by ID",
-        description = "Fetches a form configuration by its unique ID."
-    )
-    @ApiResponse(responseCode = "201", description = " successfully created.")
+    @Operation(summary = "Get a DMS Form Config by ID", description = "Fetches a form configuration by its unique ID.")
+    @ApiResponse(responseCode = "201", description = " successfully fetched by id.")
     @ApiResponse(responseCode = "500", description = "Internal server error.")
     @GetMapping("/id/{id}")
-    public ResponseEntity<DmsFormConfigDto> getbyid(@PathVariable Long id)
-    {
-        DmsFormConfigDto gotDmsFormConfig =   dmsFormConfigService.findById(id);
-       return  new ResponseEntity<>(gotDmsFormConfig, HttpStatus.OK);
+    public ResponseEntity<DmsFormConfigDto> getbyid(@PathVariable Long id) {
+        DmsFormConfigDto gotDmsFormConfig = dmsFormConfigService.findById(id);
+        return new ResponseEntity<>(gotDmsFormConfig, HttpStatus.OK);
     }
-    @Operation(
-        summary = "Update a DMS Form Config",
-        description = "Updates an existing form configuration based on the provided ID."
-    )
-    @ApiResponse(responseCode = "201", description = " successfully created.")
+
+    @Operation(summary = "Update a DMS Form Config", description = "Updates an existing form configuration based on the provided ID.")
+    @ApiResponse(responseCode = "20", description = " successfully updated.")
     @ApiResponse(responseCode = "500", description = "Internal server error.")
     @PutMapping("/id")
     public ResponseEntity<DmsFormConfigDto> updateDms(@RequestParam Long id,
@@ -66,16 +60,21 @@ public class DmsFormConfigController {
         return new ResponseEntity<>(updatedDms, HttpStatus.OK);
     }
 
-
-    @Operation(
-        summary = "Delete a DMS Form Config",
-        description = "Removes a form configuration from the system by its ID."
-    )
-    @ApiResponse(responseCode = "201", description = " successfully created.")
+    @Operation(summary = "Delete a DMS Form Config", description = "Removes a form configuration from the system by its ID.")
+    @ApiResponse(responseCode = "204", description = " Content NotFound")
     @ApiResponse(responseCode = "500", description = "Internal server error.")
     @DeleteMapping("/delete/id")
     public ResponseEntity<Void> deleteEmployee(@RequestParam Long id) {
         dmsFormConfigService.delete(id);
         return new ResponseEntity<>(HttpStatus.NO_CONTENT);
+    }
+
+    @Operation(summary = "Fetching all data of DMS Form Config", description = "gets list of data of dms form  configuration from the DB.")
+    @ApiResponse(responseCode = "200", description = " successfully fetched all details.")
+    @ApiResponse(responseCode = "500", description = "Internal server error.")
+    @GetMapping("/findall")
+    public ResponseEntity<List<DmsFormConfigDto>> findall() {
+        List<DmsFormConfigDto> listofDtos = dmsFormConfigService.findall();
+        return new ResponseEntity<List<DmsFormConfigDto>>(listofDtos, HttpStatus.OK);
     }
 }
