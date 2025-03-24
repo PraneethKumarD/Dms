@@ -25,7 +25,7 @@ import jakarta.validation.Valid;
 
 @RestController
 @RequestMapping("/api/dmsFieldMasterData")
-@Tag(name = "DMS Field Master Data API", description = "Manage DMS Field Master Data using crud operations")
+@Tag(name = "DMS FieldMasterData API", description = "Manage DMS Field Master Data using crud operations")
 public class DmsFieldMasterDataConttroller {
 
     @Autowired
@@ -35,7 +35,7 @@ public class DmsFieldMasterDataConttroller {
     @ApiResponse(responseCode = "201", description = " successfully created.")
     @ApiResponse(responseCode = "500", description = "Internal server error.")
     @PostMapping
-    public ResponseEntity<DmsFieldMasterDataDto> create(
+    public ResponseEntity<DmsFieldMasterDataDto> createDmsFieldMasterData(
             @Valid @RequestBody DmsFieldMasterDataDto dmsFieldMasterDataDto) {
         DmsFieldMasterDataDto savedDmsFieldMasterData = dmsFieldMasterDataService.createDmsFieldMasterData(dmsFieldMasterDataDto);
 
@@ -43,28 +43,28 @@ public class DmsFieldMasterDataConttroller {
     }
 
     @Operation(summary = "Delete a DMS  Field Master Data", description = "Removes a Field Master Data the system by its ID.")
-    @ApiResponse(responseCode = "201", description = " successfully created.")
+    @ApiResponse(responseCode = "204", description = " No content found -successfully deleted.")
     @ApiResponse(responseCode = "500", description = "Internal server error.")
     @DeleteMapping
-    public ResponseEntity<Void> deleteEmployee(@RequestParam Long id) {
+    public ResponseEntity<Void> deleteDmsFieldMasterData(@RequestParam Long id) {
         dmsFieldMasterDataService.deleteDmsFieldMasterData(id);
-        return new ResponseEntity<>(HttpStatus.NO_CONTENT);
+        return new ResponseEntity<>(HttpStatus.NOT_FOUND);
     }
 
     @Operation(summary = "Get a DMS Field Master Data by ID", description = "Fetches a form Field data by its unique ID.")
-    @ApiResponse(responseCode = "201", description = " successfully created.")
+    @ApiResponse(responseCode = "200", description = " successfully fetched by id.")
     @ApiResponse(responseCode = "500", description = "Internal server error.")
     @GetMapping
-    public ResponseEntity<DmsFieldMasterDataDto> getbyid(@RequestParam Long id) {
+    public ResponseEntity<DmsFieldMasterDataDto> getDmsFieldMasterDataById(@RequestParam Long id) {
         DmsFieldMasterDataDto dmsFieldMasterData = dmsFieldMasterDataService.getDmsFieldMasterDataById(id);
         return new ResponseEntity<>(dmsFieldMasterData, HttpStatus.OK);
     }
 
     @Operation(summary = "Update a DMS Feilds Master Data", description = "Updates an existing master data based on the provided ID.")
-    @ApiResponse(responseCode = "201", description = " successfully created.")
+    @ApiResponse(responseCode = "200", description = " successfully updated.")
     @ApiResponse(responseCode = "500", description = "Internal server error.")
     @PutMapping
-    public ResponseEntity<DmsFieldMasterDataDto> updateDms(@RequestParam Long id,
+    public ResponseEntity<DmsFieldMasterDataDto> updateDmsFieldMasterData(@RequestParam Long id,
             @Valid @RequestBody DmsFieldMasterDataDto dmsFieldMasterDataDto) {
         DmsFieldMasterDataDto updatedDms = dmsFieldMasterDataService.updateDmsFieldMasterData(id, dmsFieldMasterDataDto);
         return new ResponseEntity<>(updatedDms, HttpStatus.OK);
@@ -75,7 +75,7 @@ public class DmsFieldMasterDataConttroller {
     @ApiResponse(responseCode = "200", description = " successfully fetched all details.")
     @ApiResponse(responseCode = "500", description = "Internal server error.")
     @GetMapping("/findall")
-    public ResponseEntity<List<DmsFieldMasterDataDto>> findall() {
+    public ResponseEntity<List<DmsFieldMasterDataDto>> getAllDmsFieldMasterData() {
         List<DmsFieldMasterDataDto> listofDtos = dmsFieldMasterDataService.getAllDmsFieldMasterData();
         return new ResponseEntity<List<DmsFieldMasterDataDto>>(listofDtos, HttpStatus.OK);
     }
